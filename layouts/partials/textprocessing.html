@@ -45,7 +45,8 @@
     {{$display := index (last 1 (split $display "/")) 0}}
 
     <!-- attempt to get title -->
-    {{$searchtitle := $title }}
+    <!-- Use title as searchtitle or fallback to current page, if no title provided -->
+    {{$searchtitle := (default (strings.TrimRight "/" (relURL $page.Permalink)) (index $reference 0))}}
     {{$curpage := $page.GetPage $searchtitle }}
     <!-- attempt to search md file instead  -->
     {{ if (eq $curpage.String "nopPage") }}
