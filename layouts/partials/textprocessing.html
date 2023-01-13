@@ -38,15 +38,12 @@
     {{$title := index $reference 0}}
     <!-- $display is hyperlink display text -->
     <!-- use alias, else title -->
-    <!-- Also fallback to full reference name (title will be empty, if this is anchor) -->
-    {{$anchoredPath := (delimit (last (sub (len $reference) 1) $reference) "#")}}
-    {{$display := default $title (default $anchoredPath (index $split 1))}}
+    {{$display := default $title (index $split 1)}}
     <!-- remove subfolder from title -->
     {{$display := index (last 1 (split $display "/")) 0}}
 
     <!-- attempt to get title -->
-    <!-- Use title as searchtitle or fallback to current page, if no title provided -->
-    {{$searchtitle := (default (strings.TrimRight "/" (relURL $page.Permalink)) (index $reference 0))}}
+    {{$searchtitle := $title }}
     {{$curpage := $page.GetPage $searchtitle }}
     <!-- attempt to search md file instead  -->
     {{ if (eq $curpage.String "nopPage") }}
@@ -67,8 +64,7 @@
 
     <!-- If path to Hugo page -->
     {{if not (eq $curpage.String "nopPage") }}
-      <!-- Using last part of anchor to support links, like #some#link, TODO: nested links support -->
-      {{$block := (default "" (index (last 1 $reference) 0)) | lower}}
+      {{$block := default "" (index $reference 1)}}
       {{$block = strings.TrimRight "/" (cond (eq $block "") $block (printf "#%s" $block)) | urlize | lower}}
       {{$href := strings.TrimRight "/" $curpage.RelPermalink}}
       {{$link := printf "<a href=\"%s%s\" rel=\"noopener\" class=\"internal-link\" data-src=\"%s\">%s</a>" $href $block $href $display}}
