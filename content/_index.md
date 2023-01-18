@@ -1,8 +1,10 @@
 ---
-title: 🪴 Quartz 3.
+title: 🐉 My TTRPG ideas vault ✨
 enableToc: false
 ---
 
-## Get Started
-> 📚 WhiteHack: [[notes/WhiteHack]]
+## WhiteHack 3e
 
+> 📚 WhiteHack: [[wh3/WhiteHack]]
+
+> 📚 Stat Reference: [[wh3/Class Reference]]
